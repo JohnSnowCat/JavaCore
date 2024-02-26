@@ -1,0 +1,12 @@
+FROM openjdk:latest
+
+WORKDIR /usr/src/app
+
+COPY ./src/main/java .
+
+RUN javac -sourcepath . -d out1 ./testCompile/Main1.java
+
+WORKDIR /usr/src/app/out1
+
+#CMD java -classpath . testCompile.Main1
+ENTRYPOINT ["java", "testCompile.Main1"]
