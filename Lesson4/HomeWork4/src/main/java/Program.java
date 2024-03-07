@@ -1,11 +1,17 @@
 public class Program {
     public static void main(String[] args) {
         try {
-            Account account = new Account(1000); // Начальный баланс счета
-            System.out.println("Текущий баланс: " + account.getBalance());
-            account.deposit(500); // Внесение депозита
-            account.withdraw(200); // Снятие средств
-            account.withdraw(2000); // Попытка снять больше, чем есть на счете
+            Account account1 = new DebitAccount(1000); // Дебетовый счет
+            Account account2 = new CreditAccount(500); // Кредитный счет
+            System.out.println("Текущий баланс счета 1: " + account1.getBalance());
+            System.out.println("Текущий баланс счета 2: " + account2.getBalance());
+
+            double amount = 300;
+            System.out.println("Пытаемся перевести " + amount + " со счета 1 на счет 2.");
+            Transaction.transfer(account1, account2, amount);
+
+            System.out.println("Текущий баланс счета 1: " + account1.getBalance());
+            System.out.println("Текущий баланс счета 2: " + account2.getBalance());
         } catch (IllegalArgumentException e) {
             System.out.println("Ошибка: " + e.getMessage());
         } catch (InsufficientFundsException e) {
